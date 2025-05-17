@@ -1,4 +1,5 @@
-﻿using HealthTrack.Infrastructure.Data;
+﻿using dotenv.net;
+using HealthTrack.Infrastructure.Data;
 using HealthTrack.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -8,10 +9,13 @@ namespace HealthTrack.Infrastructure
 {
     public static class InfrastructureServiceRegistration
     {
-        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
         {
+            DotEnv.Load(options: new DotEnvOptions(probeForEnv: true));
+            var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION");
+
             services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(connectionString));
 
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
