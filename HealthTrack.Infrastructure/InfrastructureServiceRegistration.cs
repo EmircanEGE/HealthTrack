@@ -1,8 +1,8 @@
-﻿using dotenv.net;
+﻿using DotNetEnv;
+using HealthTrack.Core.Interfaces;
 using HealthTrack.Infrastructure.Data;
 using HealthTrack.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HealthTrack.Infrastructure
@@ -11,8 +11,13 @@ namespace HealthTrack.Infrastructure
     {
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
         {
-            DotEnv.Load(options: new DotEnvOptions(probeForEnv: true));
+            Env.TraversePath().Load();
+
             var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION");
+            if ( connectionString is null)
+            {
+                throw new Exception("connection cannot be null");
+            }
 
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(connectionString));

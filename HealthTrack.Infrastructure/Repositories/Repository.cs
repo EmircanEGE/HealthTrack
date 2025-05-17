@@ -1,5 +1,6 @@
 ﻿using HealthTrack.Core.Entities;
 using HealthTrack.Core.Exceptions;
+using HealthTrack.Core.Interfaces;
 using HealthTrack.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
