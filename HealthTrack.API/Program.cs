@@ -1,4 +1,5 @@
 using FluentValidation;
+using HealthTrack.Application.Features.Users.Commands;
 using HealthTrack.Infrastructure;
 using System.Reflection;
 
@@ -14,6 +15,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddInfrastructureServices();
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+builder.Services.AddMediatR(cfg =>
+    cfg.RegisterServicesFromAssemblies(typeof(CreateUserCommand).Assembly));
 
 var app = builder.Build();
 

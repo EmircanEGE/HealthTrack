@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Text;
 
 namespace HealthTrack.Infrastructure
@@ -14,7 +15,7 @@ namespace HealthTrack.Infrastructure
     {
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
         {
-            Env.TraversePath().Load();
+            Env.Load();
 
             var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION");
 
@@ -30,10 +31,10 @@ namespace HealthTrack.Infrastructure
                         ValidateAudience = true,
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
-                        ValidIssuer = Environment.GetEnvironmentVariable("JWT__ISSUER"),
-                        ValidAudience = Environment.GetEnvironmentVariable("JWT__AUDIENCE"),
+                        ValidIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER"),
+                        ValidAudience = Environment.GetEnvironmentVariable("JWT_AUDIENCE"),
                         IssuerSigningKey = new SymmetricSecurityKey(
-                            Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT__KEY")))
+                            Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_KEY")))
                     };
                 });
 

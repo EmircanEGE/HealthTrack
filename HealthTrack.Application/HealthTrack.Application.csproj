@@ -20,7 +20,6 @@
     <Folder Include="Features\Exercises\Commands\" />
     <Folder Include="Features\Exercises\Queries\" />
     <Folder Include="Features\Users\Queries\" />
-    <Folder Include="Mappings\" />
     <Folder Include="Services\" />
   </ItemGroup>
 
