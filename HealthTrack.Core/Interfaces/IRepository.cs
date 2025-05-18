@@ -9,5 +9,6 @@ namespace HealthTrack.Core.Interfaces
         Task<T> AddAsync(T entity);
         Task UpdateAsync(T entity);
         Task DeleteAsync(T entity);
+        IQueryable<T> GetQueryable();
     }
 }

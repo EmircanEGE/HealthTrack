@@ -21,5 +21,12 @@ namespace HealthTrack.API.Controllers
             var userId = await _mediator.Send(command);
             return Ok(userId);
         }
+
+        [HttpPost("login")]
+        public async Task<ActionResult<string>> Login(LoginCommand command)
+        {
+            var token = await _mediator.Send(command);
+            return Ok(token);
+        }
     }
 }

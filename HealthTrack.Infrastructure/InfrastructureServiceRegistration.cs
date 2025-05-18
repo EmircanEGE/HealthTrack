@@ -2,6 +2,7 @@
 using HealthTrack.Core.Interfaces;
 using HealthTrack.Infrastructure.Data;
 using HealthTrack.Infrastructure.Repositories;
+using HealthTrack.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -39,6 +40,7 @@ namespace HealthTrack.Infrastructure
                 });
 
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<IJwtService, JwtService>();
 
             return services;
         }

@@ -1,4 +1,5 @@
-﻿using HealthTrack.Core.Entities;
+﻿using BCrypt.Net;
+using HealthTrack.Core.Entities;
 using HealthTrack.Core.Interfaces;
 using MediatR;
 
@@ -19,7 +20,7 @@ namespace HealthTrack.Application.Features.Users.Commands
             {
                 Name = request.Name,
                 Email = request.Email,
-                PasswordHash = request.Password
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password)
             };
             await _userRepository.AddAsync(user);
             return user.Id;
